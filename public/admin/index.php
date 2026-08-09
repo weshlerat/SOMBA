@@ -1,0 +1,4 @@
+<?php declare(strict_types=1); require __DIR__.'/../../src/bootstrap.php';
+// Temporary protected-by-server admin shell. Before production, add authenticated admin sessions and CSRF protection.
+$games=$pdo->query('SELECT * FROM games ORDER BY name')->fetchAll();
+?><!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SOMBA Admin</title><link rel="stylesheet" href="../assets/style.css"></head><body><main><h1>SOMBA Admin</h1><p>Produits actifs: <?=htmlspecialchars((string)$pdo->query('SELECT COUNT(*) FROM products WHERE active=1')->fetchColumn())?></p><h2>Jeux</h2><div class="grid"><?php foreach($games as $g): ?><article><h3><?=htmlspecialchars($g['name'])?></h3><p><?=htmlspecialchars($g['slug'])?></p></article><?php endforeach;?></div><h2>Configuration</h2><p>Les clés API restent dans <code>config/config.php</code> côté serveur. Ne les commit jamais.</p></main></body></html>
